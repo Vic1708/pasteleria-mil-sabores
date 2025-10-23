@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 import Text from "../atoms/Text";
 
@@ -12,99 +11,92 @@ export default function RegisterForm({ onSubmit }) {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  const validarCampo = (name, value) => {
+    let errorMsg = "";
+
+    switch (name) {
+      case "nombre":
+        if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,}$/.test(value))
+          errorMsg = "Debe tener al menos 3 letras y no incluir números.";
+        break;
+      case "correo":
+        if (value.length < 3 || !value.includes("@"))
+          errorMsg = "Debe ingresar un correo válido que contenga '@'.";
+        break;
+      case "fechaNacimiento":
+        if (!value) errorMsg = "Debe ingresar su fecha de nacimiento.";
+        break;
+      case "direccion":
+        if (value.trim() === "") errorMsg = "Debe ingresar una dirección válida.";
+        break;
+      case "password":
+        if (value.length < 6)
+          errorMsg = "La contraseña debe tener al menos 6 caracteres.";
+        break;
+      case "confirmPassword":
+        if (value !== user.password)
+          errorMsg = "Las contraseñas no coinciden.";
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: errorMsg }));
+  };
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+    validarCampo(name, value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validaciones
-    if (!user.nombre || !user.correo || !user.fechaNacimiento || !user.direccion) {
-      setError("Por favor, completa todos los campos requeridos.");
+    const camposConError = Object.values(errors).some((error) => error !== "");
+    const camposVacios = Object.values(user).some((campo) => campo.trim() === "");
+    if (camposConError || camposVacios) {
+      alert("Por favor, corrija los errores antes de continuar.");
       return;
     }
-
-    if (!user.password || !user.confirmPassword) {
-      setError("Debes ingresar y confirmar tu contraseña.");
-      return;
-    }
-
-    if (user.password !== user.confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-
-    // Validar si el correo ya está registrado
-    const existing = JSON.parse(localStorage.getItem("usuario"));
-    if (existing && existing.correo === user.correo) {
-      setError("Este correo ya está registrado.");
-      return;
-    }
-
-    // Si todo es válido
-    setError("");
     onSubmit(user);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="card"
-      style={{ maxWidth: "500px", margin: "auto" }}
-    >
-      <h2 style={{ textAlign: "center" }}>Formulario de Registro</h2>
-      {error && <Text style={{ color: "red", marginBottom: "10px" }}>{error}</Text>}
+    <form className="register-form" onSubmit={handleSubmit}>
+      <Text as="h2" className="register-title">
+        Registro
+      </Text>
 
-      <FormField
-        label="Nombre completo"
-        name="nombre"
-        value={user.nombre}
-        onChange={handleChange}
-        required
-      />
-      <FormField
-        type="email"
-        label="Correo electrónico"
-        name="correo"
-        value={user.correo}
-        onChange={handleChange}
-        required
-      />
-      <FormField
-        type="date"
-        label="Fecha de nacimiento"
-        name="fechaNacimiento"
-        value={user.fechaNacimiento}
-        onChange={handleChange}
-      />
-      <FormField
-        label="Dirección"
-        name="direccion"
-        value={user.direccion}
-        onChange={handleChange}
-        required
-      />
-      <FormField
-        type="password"
-        label="Contraseña"
-        name="password"
-        value={user.password}
-        onChange={handleChange}
-        required
-      />
-      <FormField
-        type="password"
-        label="Confirmar contraseña"
-        name="confirmPassword"
-        value={user.confirmPassword}
-        onChange={handleChange}
-        required
-      />
+      {[
+        { name: "nombre", type: "text", placeholder: "Nombre completo" },
+        { name: "correo", type: "email", placeholder: "Correo electrónico" },
+        { name: "fechaNacimiento", type: "date", placeholder: "Fecha de nacimiento" },
+        { name: "direccion", type: "text", placeholder: "Dirección" },
+        { name: "password", type: "password", placeholder: "Contraseña" },
+        { name: "confirmPassword", type: "password", placeholder: "Confirmar contraseña" },
+      ].map((field) => (
+        <div key={field.name} className="input-group">
+          <input
+            type={field.type}
+            name={field.name}
+            placeholder={field.placeholder}
+            value={user[field.name]}
+            onChange={handleChange}
+            className={errors[field.name] ? "input-error" : ""}
+            required
+          />
+          {errors[field.name] && (
+            <small className="error-text">{errors[field.name]}</small>
+          )}
+        </div>
+      ))}
 
-      <Button type="submit">Registrar</Button>
+      <Button type="submit" className="btn-registrar">
+        Registrar
+      </Button>
     </form>
   );
 }

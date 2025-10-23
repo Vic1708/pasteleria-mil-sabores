@@ -8,7 +8,7 @@ export const products = [
     price: 12900,
     category: "Tortas Cuadradas",
     description: "Bizcocho de vainilla con crema pastelera y frambuesas frescas.",
-    image: "/imagenes/pastel.png",
+    image: "public/imagenes/.png",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const products = [
     price: 13900,
     category: "Tortas Circulares",
     description: "Torta húmeda de chocolate con cobertura ganache.",
-    image: "/imagenes/pastel.png",
+    image: "public/imagenes/.png",
   },
   {
     id: 3,

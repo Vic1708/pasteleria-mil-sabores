@@ -39,8 +39,8 @@ export default function Navbar() {
     <nav className="nav">
       <div className="nav-inner container">
         <div className="row" style={{ alignItems: "center", gap: "8px" }}>
-          <Image src="/imagenes/logo.png" alt="Mil Sabores" width="50px" />
-          <h2 style={{ fontFamily: "Pacifico", color: "#8b4513" }}>Mil Sabores</h2>
+          <Image src="/imagenes/logo.png" alt="Mil Sabore" width="50px" />
+          <h2 style={{ fontFamily: "Pacifico", color: "#8b4513" }}>Pasteleria Mil Sabores</h2>
         </div>
 
         <div className="row" style={{ gap: "14px" }}>

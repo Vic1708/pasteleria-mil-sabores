@@ -20,20 +20,11 @@ export default function Perfil() {
   }, [user]);
 
   const verificarBeneficio = (usuario) => {
-    const total = 10000; // valor base para simular beneficio
-    const totalConDescuento = calcularDescuento(usuario, total, "");
-    let msg = "";
+  const total = 10000; // valor base solo para simular el descuento
+  const { beneficio } = calcularDescuento(total, usuario);
+  setBeneficio(beneficio);
+};
 
-    if (totalConDescuento === 0)
-      msg = "🎂 ¡Tienes una torta gratis por tu cumpleaños con correo Duoc!";
-    else if (totalConDescuento === total * 0.5)
-      msg = "👵 Descuento del 50% por ser mayor de 50 años.";
-    else if (totalConDescuento === total * 0.9)
-      msg = "🎟️ Descuento del 10% por código FELICES50.";
-    else msg = "Sin beneficios activos.";
-
-    setBeneficio(msg);
-  };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });

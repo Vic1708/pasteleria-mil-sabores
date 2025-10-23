@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import Text from "../atoms/Text";
 import Button from "../atoms/Button";
-
-// Función para calcular totales y descuentos
 import { calcularDescuento } from "../../utils/discounts";
+
 
 export default function CartSummary({ onCheckout }) {
   const [cart, setCart] = useState([]);
@@ -142,9 +141,30 @@ export default function CartSummary({ onCheckout }) {
 
         <Text>Total productos: {cantidadTotal}</Text>
 
-        <Text style={{ fontWeight: "bold", color: "#8b4513" }}>
-          {beneficio}
-        </Text>
+        {beneficio && (
+          <div
+            style={{
+              background: "rgba(255, 235, 205, 0.5)",
+              border: "1px solid #ffd9b3",
+              borderRadius: "12px",
+              padding: "10px",
+              marginTop: "12px",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+              textAlign: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                color: "#8b4513",
+                fontSize: "0.95rem",
+              }}
+            >
+              {beneficio}
+            </Text>
+          </div>
+        )}
+
 
         <Text
           style={{
