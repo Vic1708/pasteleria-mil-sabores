@@ -8,7 +8,7 @@ export const products = [
     price: 12900,
     category: "Tortas Cuadradas",
     description: "Bizcocho de vainilla con crema pastelera y frambuesas frescas.",
-    image: "public/imagenes/.png",
+    image: "public/imagenes/TortaCuadradaFrambuesa.png",
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const products = [
     price: 13900,
     category: "Tortas Circulares",
     description: "Torta húmeda de chocolate con cobertura ganache.",
-    image: "public/imagenes/.png",
+    image: "public/imagenes/TortaCircularChocolate.png",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const products = [
     price: 9900,
     category: "Postres Individuales",
     description: "Masa sablée con relleno de limón y merengue italiano.",
-    image: "/imagenes/pastel.png",
+    image: "public/imagenes/PieDeLimon.png",
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ export const products = [
     price: 11500,
     category: "Vegana",
     description: "Torta húmeda de zanahoria sin ingredientes de origen animal.",
-    image: "/imagenes/pastel.png",
+    image: "public/imagenes/TortaVegana.png",
   },
   {
     id: 5,
@@ -44,6 +44,6 @@ export const products = [
     price: 8900,
     category: "Sin Gluten",
     description: "Kuchen artesanal con harina de almendras y manzanas caramelizadas.",
-    image: "/imagenes/pastel.png",
+    image: "/imagenes/KuchenManzana.png",
   },
 ];

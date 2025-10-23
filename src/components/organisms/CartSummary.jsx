@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import Text from "../atoms/Text";
 import Button from "../atoms/Button";
-import { calcularDescuento } from "../../utils/discounts";
-
+import { calcularDescuentoCarrito } from "../../utils/discounts";
 
 export default function CartSummary({ onCheckout }) {
   const [cart, setCart] = useState([]);
@@ -11,28 +10,36 @@ export default function CartSummary({ onCheckout }) {
   const [beneficio, setBeneficio] = useState("");
   const [cantidadTotal, setCantidadTotal] = useState(0);
 
-  // 🔹 Cargar el carrito desde localStorage
+  // 🔹 Cargar carrito desde localStorage al iniciar
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(savedCart);
   }, []);
 
-  // 🔹 Recalcular totales cada vez que el carrito cambia
+  // 🔹 Recalcular totales y beneficios cada vez que el carrito cambie
   useEffect(() => {
-    const subtotalTemp = cart.reduce(
-      (acc, item) => acc + item.price * item.quantity,
+    if (!cart || cart.length === 0) {
+      setSubtotal(0);
+      setTotalConDescuento(0);
+      setCantidadTotal(0);
+      setBeneficio("");
+      return;
+    }
+
+    const cantidadTemp = cart.reduce(
+      (acc, item) => acc + (item.quantity || 1),
       0
     );
-    const cantidadTemp = cart.reduce((acc, item) => acc + item.quantity, 0);
-    setSubtotal(subtotalTemp);
     setCantidadTotal(cantidadTemp);
 
-    const { totalConDescuento, beneficio } = calcularDescuento(subtotalTemp);
+    const { subtotal, totalConDescuento, beneficio } =
+      calcularDescuentoCarrito(cart);
+    setSubtotal(subtotal);
     setTotalConDescuento(totalConDescuento);
     setBeneficio(beneficio);
   }, [cart]);
 
-  // 🔹 Eliminar un producto del carrito
+  // 🔹 Eliminar producto
   const eliminarProducto = (id) => {
     const nuevoCarrito = cart.filter((item) => item.id !== id);
     setCart(nuevoCarrito);
@@ -42,7 +49,7 @@ export default function CartSummary({ onCheckout }) {
   // 🔹 Aumentar cantidad
   const aumentarCantidad = (id) => {
     const actualizado = cart.map((item) =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      item.id === id ? { ...item, quantity: (item.quantity || 1) + 1 } : item
     );
     setCart(actualizado);
     localStorage.setItem("cart", JSON.stringify(actualizado));
@@ -52,11 +59,11 @@ export default function CartSummary({ onCheckout }) {
   const disminuirCantidad = (id) => {
     const actualizado = cart
       .map((item) =>
-        item.id === id && item.quantity > 1
+        item.id === id && (item.quantity || 1) > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
-      .filter((item) => item.quantity > 0);
+      .filter((item) => (item.quantity || 1) > 0);
     setCart(actualizado);
     localStorage.setItem("cart", JSON.stringify(actualizado));
   };
@@ -72,13 +79,20 @@ export default function CartSummary({ onCheckout }) {
     );
   }
 
-  // 🔹 Mostrar el resumen del carrito
+  // 🔹 Mostrar resumen del carrito
   return (
     <div style={{ padding: "20px" }}>
-      <Text style={{ fontSize: "24px", fontWeight: "bold", color: "#8b4513" }}>
+      <Text
+        style={{
+          fontSize: "24px",
+          fontWeight: "bold",
+          color: "#8b4513",
+        }}
+      >
         🧁 Resumen de tu carrito
       </Text>
 
+      {/* Productos del carrito */}
       <div style={{ marginTop: "20px" }}>
         {cart.map((item) => (
           <div
@@ -125,7 +139,7 @@ export default function CartSummary({ onCheckout }) {
         ))}
       </div>
 
-      {/* 🔹 Totales y descuentos */}
+      {/* Totales y beneficios */}
       <div style={{ textAlign: "right", marginTop: "30px" }}>
         <Text>🧾 Subtotal:</Text>
 
@@ -144,27 +158,20 @@ export default function CartSummary({ onCheckout }) {
         {beneficio && (
           <div
             style={{
-              background: "rgba(255, 235, 205, 0.5)",
-              border: "1px solid #ffd9b3",
+              marginTop: "15px",
+              padding: "14px",
               borderRadius: "12px",
-              padding: "10px",
-              marginTop: "12px",
+              border: "1px solid #f4c9a8",
+              background: "#fff1e6",
+              color: "#8b4513",
+              fontWeight: "bold",
               boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
               textAlign: "center",
             }}
           >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: "#8b4513",
-                fontSize: "0.95rem",
-              }}
-            >
-              {beneficio}
-            </Text>
+            {beneficio}
           </div>
         )}
-
 
         <Text
           style={{
@@ -179,7 +186,11 @@ export default function CartSummary({ onCheckout }) {
 
         <Button
           onClick={onCheckout}
-          style={{ marginTop: "15px", background: "#ffb6b9" }}
+          style={{
+            marginTop: "15px",
+            background: "#ffb6b9",
+            borderRadius: "10px",
+          }}
         >
           Finalizar compra
         </Button>
