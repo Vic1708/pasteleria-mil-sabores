@@ -4,7 +4,7 @@ import FormField from "../molecules/FormField";
 import Button from "../atoms/Button";
 import Text from "../atoms/Text";
 import { useAuth } from "../../context/AuthContext";
-import { calcularDescuento } from "../../utils/discounts";
+
 
 export default function Perfil() {
   const { user, logout } = useAuth();
