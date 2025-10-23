@@ -1,28 +1,48 @@
 // src/utils/discounts.js
-export function calcularDescuento(usuario, total, codigo) {
-  if (!usuario) return total;
 
-  const hoy = new Date();
-  const fechaNac = new Date(usuario.fechaNacimiento);
-  const edad = hoy.getFullYear() - fechaNac.getFullYear();
-  const cumpleHoy =
-    fechaNac.getDate() === hoy.getDate() &&
-    fechaNac.getMonth() === hoy.getMonth();
-
-  // 1️⃣ Cumpleaños + correo Duoc → torta gratis
-  if (cumpleHoy && usuario.correo?.includes("@duocuc.cl")) {
-    return 0;
+export function calcularDescuento(subtotal) {
+  // Si no hay subtotal, devolvemos los valores básicos
+  if (!subtotal || subtotal <= 0) {
+    return { totalConDescuento: 0, beneficio: "" };
   }
 
-  // 2️⃣ Edad ≥ 50 → 50% descuento
-  if (edad >= 50) {
-    return total * 0.5;
+  let beneficio = "";
+  let totalConDescuento = subtotal;
+
+  // Intentar obtener los datos del usuario registrado
+  const usuario = JSON.parse(localStorage.getItem("usuario")) || {};
+  const correo = usuario.correo || "";
+  const fechaNacimiento = usuario.fechaNacimiento || "";
+  const codigo = usuario.codigoDescuento || "";
+
+  // Calcular edad (si existe fecha de nacimiento)
+  let edad = 0;
+  if (fechaNacimiento) {
+    const hoy = new Date();
+    const cumple = new Date(fechaNacimiento);
+    edad = hoy.getFullYear() - cumple.getFullYear();
+    const m = hoy.getMonth() - cumple.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < cumple.getDate())) {
+      edad--;
+    }
   }
 
-  // 3️⃣ Código FELICES50 → 10% descuento
-  if (codigo && codigo.toUpperCase() === "FELICES50") {
-    return total * 0.9;
+  // 🎂 1. Regalo cumpleaños DUOC
+  if (correo.includes("@duocuc.cl")) {
+    beneficio = "🎂 Regalo de cumpleaños (correo institucional DUOC)";
+    totalConDescuento = 0;
+  }
+  // 👵 2. 50% de descuento por edad
+  else if (edad >= 50) {
+    beneficio = "👵 Descuento 50% por edad (mayores de 50)";
+    totalConDescuento = subtotal * 0.5;
+  }
+  // 🎟️ 3. Código FELICES50 = 10% de descuento
+  else if (codigo === "FELICES50") {
+    beneficio = "🎟️ Descuento 10% código FELICES50";
+    totalConDescuento = subtotal * 0.9;
   }
 
-  return total; // Sin beneficio
+  // ✅ Devolver objeto con ambas propiedades
+  return { totalConDescuento, beneficio };
 }
