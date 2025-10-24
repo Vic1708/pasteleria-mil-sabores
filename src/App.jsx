@@ -6,6 +6,7 @@ import Carrito from "./components/pages/Carrito";
 import Perfil from "./components/pages/Perfil";
 import Checkout from "./components/pages/Checkout";
 import Login from "./components/pages/Login";
+import ProductDetail from "./components/pages/ProductDetail";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import Blog from "./components/pages/Blog";
 
@@ -14,6 +15,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/catalogo" element={<Catalogo />} />
+      <Route path="/producto/:id" element={<ProductDetail />} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/login" element={<Login />} />
       <Route path="/carrito" element={<Carrito />} />

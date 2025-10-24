@@ -31,6 +31,7 @@ export default function ProductGrid({ products, onAdd }) {
         {products.map((p) => (
           <CardProduct
             key={p.id}
+            id={p.id}
             image={p.image}
             name={p.name}
             price={p.price}

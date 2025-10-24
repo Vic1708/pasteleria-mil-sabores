@@ -54,9 +54,9 @@ a:hover {
   align-items: center;
 }
 
-/* === CARDS === */
+/* === CARD === */
 .card {
-  background-color: var(--card);
+  background: var(--card);
   border-radius: 16px;
   box-shadow: var(--shadow);
   padding: 16px;
@@ -65,6 +65,18 @@ a:hover {
 
 .card:hover {
   transform: translateY(-2px);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card > div:first-child {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* === BUTTONS === */
@@ -81,6 +93,36 @@ a:hover {
 
 .btn:hover {
   filter: brightness(0.95);
+}
+
+/* === CARD ACTIONS BUTTONS === */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-card {
+  width: 100%;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-card.btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  color: var(--choco);
+}
+
+.btn-card.btn-secondary:hover {
+  background-color: var(--accent);
+  color: #442b2b;
 }
 
 /* === INPUTS === */
@@ -337,8 +379,328 @@ button:hover {
   color: var(--card);
 }
 
+/* === PRODUCT DETAIL STYLES === */
+.product-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.breadcrumb {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--text2);
+}
+
+.breadcrumb span {
+  transition: color 0.3s;
+}
+
+/* === MISSION & VISION SECTION === */
+.mission-vision-section {
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #fff5e1 0%, #ffe5cc 100%);
+  margin: 40px 0;
+}
+
+.mission-vision-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.mission-vision-card {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-vision-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #ff6b9d 0%, #c44569 100%);
+}
+
+.mission-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+}
+
+.vision-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(196, 69, 105, 0.2);
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.card-content {
+  text-align: center;
+}
+
+.mission-vision-card .card-title {
+  font-size: 2rem;
+  color: #8b4513;
+  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
+}
+
+.mission-vision-card .card-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #5d4037;
+  text-align: justify;
+}
+
+.product-detail-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+  background: var(--card);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.product-detail-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-detail-image img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.product-code {
+  color: var(--text2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.product-category {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--choco);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.product-price {
+  padding: 15px 0;
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  margin: 10px 0;
+}
+
+.product-description {
+  margin: 15px 0;
+}
+
+.product-description h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.quantity-control {
+  margin: 20px 0;
+}
+
+.quantity-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.quantity-display {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--choco);
+  min-width: 50px;
+  text-align: center;
+  padding: 5px 15px;
+  background: var(--bg);
+  border-radius: 8px;
+}
+
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.product-actions button {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* === REVIEWS SECTION === */
+.product-reviews-section {
+  background: var(--card);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  margin-top: 30px;
+}
+
+.add-review {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid var(--bg);
+}
+
+.add-review h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--accent);
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 15px;
+  transition: border-color 0.3s;
+}
+
+.review-textarea:focus {
+  outline: none;
+  border-color: var(--choco);
+}
+
+.reviews-list h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.review-item {
+  background: var(--bg);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--accent);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.review-item p {
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* === RESPONSIVE PRODUCT DETAIL === */
+@media (max-width: 768px) {
+  .product-detail-main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-detail-image img {
+    max-width: 100%;
+  }
+
+  .quantity-buttons {
+    justify-content: center;
+  }
+
+  .product-actions button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .product-reviews-section {
+    padding: 20px;
+  }
+
+  .breadcrumb {
+    font-size: 12px;
+  }
+
+  .mission-vision-section {
+    padding: 40px 15px;
+  }
+
+  .mission-vision-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .mission-vision-card {
+    padding: 30px 20px;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+  }
+
+  .mission-vision-card .card-title {
+    font-size: 1.5rem;
+  }
+
+  .mission-vision-card .card-text {
+    font-size: 0.9rem;
+  }
+}
+
 @media (max-width: 600px) {
   .hero-content h1 { font-size: 1.8rem; }
   .hero-content p { font-size: 1rem; }
+  
+  .btn-card {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+  
+  .card-actions {
+    gap: 6px;
+  }
 }
 

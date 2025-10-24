@@ -1,10 +1,11 @@
 import React from 'react';
+import DefaultLayout from '../templates/DefaultLayout';
 import BlogCard from '../molecules/BlogCard';
 import blogPosts from '../../data/blogPosts';
 
 export default function Blog() {
   return (
-    <div className="container">
+    <DefaultLayout>
       <section className="hero-container" style={{ height: '28vh', marginTop: 20 }}>
         <div className="hero-slide active">
           <img src="/imagenes/Hero/Hero2.png" alt="Blog Hero" />
@@ -22,6 +23,6 @@ export default function Blog() {
           ))}
         </div>
       </main>
-    </div>
+    </DefaultLayout>
   );
 }

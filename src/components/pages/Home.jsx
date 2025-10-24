@@ -2,13 +2,15 @@ import DefaultLayout from "../templates/DefaultLayout";
 import HeroSection from "../organisms/HeroSection";
 import ProductHighlights from "../organisms/ReviewsSection";
 import AboutSection from "../organisms/AboutSection";
+import MissionVisionSection from "../organisms/MissionVisionSection";
 
 
 export default function Home() {
   return (
     <DefaultLayout>
       <HeroSection />
-      <AboutSection />  
+      <AboutSection /> 
+      <MissionVisionSection /> 
       <ProductHighlights />
       <footer
         style={{

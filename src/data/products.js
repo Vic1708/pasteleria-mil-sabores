@@ -37,7 +37,7 @@ export const products = [
     description: "Torta húmeda de zanahoria sin ingredientes de origen animal.",
     image: "public/imagenes/TortaVegana.png",
   },
-  {
+  { 
     id: 5,
     codigo: "SG005",
     name: "Kuchen sin Gluten de Manzana",
