@@ -35,7 +35,7 @@ export const products = [
     price: 11500,
     category: "Vegana",
     description: "Torta húmeda de zanahoria sin ingredientes de origen animal.",
-    image: "public/imagenes/TortaVegana.png",
+    image: "imagenes/TortaVegana.png",
   },
   { 
     id: 5,

@@ -10,6 +10,7 @@ export default function RegisterForm({ onSubmit }) {
     direccion: "",
     password: "",
     confirmPassword: "",
+    codigoDescuento: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -56,7 +57,12 @@ export default function RegisterForm({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const camposConError = Object.values(errors).some((error) => error !== "");
-    const camposVacios = Object.values(user).some((campo) => campo.trim() === "");
+    
+    // Excluir codigoDescuento de la validación de campos vacíos (es opcional)
+    const camposObligatorios = { ...user };
+    delete camposObligatorios.codigoDescuento;
+    const camposVacios = Object.values(camposObligatorios).some((campo) => campo.trim() === "");
+    
     if (camposConError || camposVacios) {
       alert("Por favor, corrija los errores antes de continuar.");
       return;
@@ -77,6 +83,7 @@ export default function RegisterForm({ onSubmit }) {
         { name: "direccion", type: "text", placeholder: "Dirección" },
         { name: "password", type: "password", placeholder: "Contraseña" },
         { name: "confirmPassword", type: "password", placeholder: "Confirmar contraseña" },
+        { name: "codigoDescuento", type: "text", placeholder: "Código de descuento (opcional, ej: FELICES50)" },
       ].map((field) => (
         <div key={field.name} className="input-group">
           <input
@@ -86,7 +93,7 @@ export default function RegisterForm({ onSubmit }) {
             value={user[field.name]}
             onChange={handleChange}
             className={errors[field.name] ? "input-error" : ""}
-            required
+            required={field.name !== "codigoDescuento"}
           />
           {errors[field.name] && (
             <small className="error-text">{errors[field.name]}</small>

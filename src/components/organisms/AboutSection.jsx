@@ -3,6 +3,7 @@ import Image from "../atoms/Image";
 export default function AboutSection() {
   return (
     <section
+      className="about-section"
       style={{
         display: "flex",
         flexWrap: "wrap",
@@ -14,7 +15,7 @@ export default function AboutSection() {
         borderTop: "2px solid #f5d2c0",
       }}
     >
-      <div style={{ maxWidth: "500px" }}>
+      <div className="about-content" style={{ maxWidth: "500px" }}>
         <h2 style={{ color: "#8b4513", marginBottom: "15px" }}>¿Quiénes somos?</h2>
         <p style={{ color: "#333", lineHeight: "1.6" }}>
           En <strong>Pastelería Mil Sabores</strong> celebramos la repostería artesanal chilena con 
@@ -28,6 +29,7 @@ export default function AboutSection() {
       <Image
         src="/public/imagenes/logo.png"
         alt="Mil Sabores"
+        className="about-image"
         style={{
           width: "260px",
           borderRadius: "50%",
