@@ -315,3 +315,30 @@ button:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 10px rgba(255, 182, 185, 0.4);
 }
+
+/* === BLOG STYLES === */
+.blog-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.blog-card h3 {
+  font-size: 1.2rem;
+  color: var(--choco);
+}
+
+.blog-hero .hero-content h1 {
+  color: var(--card);
+}
+
+@media (max-width: 600px) {
+  .hero-content h1 { font-size: 1.8rem; }
+  .hero-content p { font-size: 1rem; }
+}
+

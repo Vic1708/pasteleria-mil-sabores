@@ -65,6 +65,8 @@ export default function Navbar() {
             )}
           </Link>
 
+          <Link to="/blog">Blog</Link>
+
           {user ? (
             <>
               <Link to="/perfil">Perfil</Link>

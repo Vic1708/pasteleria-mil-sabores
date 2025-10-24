@@ -7,6 +7,7 @@ import Perfil from "./components/pages/Perfil";
 import Checkout from "./components/pages/Checkout";
 import Login from "./components/pages/Login";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import Blog from "./components/pages/Blog";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           </ProtectedRoute>
         }
       />
+      <Route path="/blog" element={<Blog />} />
     </Routes>
   );
 }
